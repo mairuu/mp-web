@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+@plugin 'daisyui' {
+	themes: dracula --default;
+}
+
+html {
+	/* important pull to next depends on this */
+	overscroll-behavior: none;
+}
