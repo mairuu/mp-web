@@ -25,9 +25,6 @@
 		isTouchDevice = e.matches;
 	}
 
-	mql.addEventListener('change', handleMediaQueryChange);
-	// const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-
 	const isDescending = $derived(
 		chapters.length > 2 &&
 			chapters[0].number.padStart(10, '0') > chapters[1].number.padStart(10, '0')
@@ -78,9 +75,7 @@
 			loading = false;
 		}
 	}
-	const pull = createPullToNext(() => {
-		goToNextChapter();
-	});
+	const pull = createPullToNext(goToNextChapter);
 
 	const CIRCLE_RADIUS = 16;
 	const CIRCLE_CIRCUMFERENCE = 2 * Math.PI * CIRCLE_RADIUS;
@@ -97,6 +92,7 @@
 	});
 
 	onMount(() => {
+		mql.addEventListener('change', handleMediaQueryChange);
 		return () => {
 			mql.removeEventListener('change', handleMediaQueryChange);
 			pull.disable();
@@ -130,11 +126,8 @@
 	onPrev={handleGoPrevChapter}
 />
 
-<div class="">
+<div>
 	<div class="mx-auto w-full max-w-xl px-4 pt-4">
-		<!-- <h1 class="mb-2 text-2xl font-bold">{chapter.title}</h1>
-		<p class="mb-4 text-sm text-gray-500">Chapter {chapter.number}</p> -->
-
 		<a class="btn" href={resolve(`/chapter/[id]/edit`, { id: chapter.id })}>
 			<SquarePen />
 		</a>
@@ -224,9 +217,8 @@
 			{/if}
 		</span>
 
-		<!-- <div class="h-14"></div> -->
 		<div style:min-height="{pull.pullHeight}px"></div>
 	</div>
-{:else}{/if}
+{/if}
 
 <div class="h-14"></div>
