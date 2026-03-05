@@ -15,16 +15,18 @@
 	const chapters = $derived(data.chapters);
 
 	let loading = $state(false);
-	$effect(() => {
-		document.body.style.overflow = loading ? 'hidden' : '';
-		return () => {
-			document.body.style.overflow = '';
-		};
-	});
-
 	let navHidden = $state(false);
 
-	const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+	const mql = window.matchMedia('(pointer: coarse)');
+
+	let isTouchDevice = $state(mql.matches);
+
+	function handleMediaQueryChange(e: MediaQueryListEvent) {
+		isTouchDevice = e.matches;
+	}
+
+	mql.addEventListener('change', handleMediaQueryChange);
+	// const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
 	const isDescending = $derived(
 		chapters.length > 2 &&
@@ -95,16 +97,43 @@
 	});
 
 	onMount(() => {
-		return () => pull.disable();
+		return () => {
+			mql.removeEventListener('change', handleMediaQueryChange);
+			pull.disable();
+		};
 	});
+
+	function handleScroll() {
+		// show nav if scrolled to top or bottom
+		const scrollTop = window.scrollY;
+		const scrollHeight = document.documentElement.scrollHeight;
+		const clientHeight = window.innerHeight;
+		if (scrollTop < 1 || scrollTop + clientHeight >= scrollHeight - 1) {
+			navHidden = false;
+		} else {
+			navHidden = true;
+		}
+	}
 </script>
 
-<Nav bind:hidden={navHidden} onNext={handleGoNextChapter} onPrev={handleGoPrevChapter} />
+<svelte:head>
+	<title>ch. {chapter.title}</title>
+</svelte:head>
+
+<svelte:window onscroll={handleScroll} />
+
+<Nav
+	mangaId={chapter.manga_id}
+	title="Ch. {chapter.number} - {chapter.title}"
+	bind:hidden={navHidden}
+	onNext={handleGoNextChapter}
+	onPrev={handleGoPrevChapter}
+/>
 
 <div class="">
 	<div class="mx-auto w-full max-w-xl px-4 pt-4">
-		<h1 class="mb-2 text-2xl font-bold">{chapter.title}</h1>
-		<p class="mb-4 text-sm text-gray-500">Chapter {chapter.number}</p>
+		<!-- <h1 class="mb-2 text-2xl font-bold">{chapter.title}</h1>
+		<p class="mb-4 text-sm text-gray-500">Chapter {chapter.number}</p> -->
 
 		<a class="btn" href={resolve(`/chapter/[id]/edit`, { id: chapter.id })}>
 			<SquarePen />
@@ -195,9 +224,9 @@
 			{/if}
 		</span>
 
-		<div class="h-14"></div>
+		<!-- <div class="h-14"></div> -->
 		<div style:min-height="{pull.pullHeight}px"></div>
 	</div>
-{:else}
-	<div class="h-14"></div>
-{/if}
+{:else}{/if}
+
+<div class="h-14"></div>
