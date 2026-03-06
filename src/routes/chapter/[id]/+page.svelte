@@ -17,14 +17,6 @@
 	let loading = $state(false);
 	let navHidden = $state(false);
 
-	const mql = window.matchMedia('(pointer: coarse)');
-
-	let isTouchDevice = $state(mql.matches);
-
-	function handleMediaQueryChange(e: MediaQueryListEvent) {
-		isTouchDevice = e.matches;
-	}
-
 	const isDescending = $derived(
 		chapters.length > 2 &&
 			chapters[0].number.padStart(10, '0') > chapters[1].number.padStart(10, '0')
@@ -43,6 +35,10 @@
 
 	const handleGoPrevChapter = $derived(hasPrevChapter ? goToPrevChapter : undefined);
 	const handleGoNextChapter = $derived(hasNextChapter ? goToNextChapter : undefined);
+
+	function goToManga() {
+		goto(resolve(`/manga/[id]`, { id: chapter.manga_id }));
+	}
 
 	async function goToNextChapter() {
 		if (chapters.length < 2) return;
@@ -75,7 +71,15 @@
 			loading = false;
 		}
 	}
+
 	const pull = createPullToNext(goToNextChapter);
+	const mql = window.matchMedia('(pointer: coarse)');
+
+	let isTouchDevice = $state(mql.matches);
+
+	function handleMediaQueryChange(e: MediaQueryListEvent) {
+		isTouchDevice = e.matches;
+	}
 
 	const CIRCLE_RADIUS = 16;
 	const CIRCLE_CIRCUMFERENCE = 2 * Math.PI * CIRCLE_RADIUS;
@@ -119,21 +123,19 @@
 <svelte:window onscroll={handleScroll} />
 
 <Nav
-	mangaId={chapter.manga_id}
 	title="Ch. {chapter.number} - {chapter.title}"
 	bind:hidden={navHidden}
+	onMenu={goToManga}
 	onNext={handleGoNextChapter}
 	onPrev={handleGoPrevChapter}
 />
 
 <div>
 	<div class="mx-auto w-full max-w-xl px-4 pt-4">
-		<a class="btn" href={resolve(`/chapter/[id]/edit`, { id: chapter.id })}>
+		<a class="btn btn-square" href={resolve(`/chapter/[id]/edit`, { id: chapter.id })}>
 			<SquarePen />
 		</a>
 	</div>
-
-	<div class="divider"></div>
 
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
 	<!-- svelte-ignore a11y_no_static_element_interactions -->

@@ -2,18 +2,17 @@
 	import Menu from '@lucide/svelte/icons/menu';
 	import ChevronLeft from '@lucide/svelte/icons/chevron-left';
 	import ChevronRight from '@lucide/svelte/icons/chevron-right';
-	import { resolve } from '$app/paths';
 
 	let {
-		mangaId, // todo:
 		title = '',
 		hidden = $bindable(false),
+		onMenu,
 		onNext,
 		onPrev
 	}: {
-		mangaId: string;
 		title?: string;
 		hidden?: boolean;
+		onMenu?: () => void;
 		onNext?: () => void;
 		onPrev?: () => void;
 	} = $props();
@@ -27,10 +26,10 @@
 		'translate-y-[calc((env(safe-area-inset-top)-3.5rem))]': !showNav
 	}}
 >
-	<div class="flex h-14 items-center">
-		<a href={resolve('/manga/[id]', { id: mangaId })} class="btn btn-ghost">
-			<Menu />
-		</a>
+	<div class="flex h-14 items-center gap-2 px-2">
+		<button onclick={onMenu} class="btn btn-square btn-ghost">
+			<Menu class="h-6 w-6" />
+		</button>
 
 		<div class="line-clamp-1">
 			{title}
@@ -44,13 +43,13 @@
 		'translate-y-[calc((env(safe-area-inset-bottom)+3.5rem))]': !showNav
 	}}
 >
-	<div class="flex h-14 items-center justify-end gap-4 px-4">
+	<div class="flex h-14 items-center justify-end px-2">
 		<div class="join">
-			<button class="btn join-item btn-ghost" disabled={!onPrev} onclick={onPrev}>
-				<ChevronLeft />
+			<button class="btn join-item btn-square btn-ghost" disabled={!onPrev} onclick={onPrev}>
+				<ChevronLeft class="h-6 w-6" />
 			</button>
-			<button class="btn join-item btn-ghost" disabled={!onNext} onclick={onNext}>
-				<ChevronRight />
+			<button class="btn join-item btn-square btn-ghost" disabled={!onNext} onclick={onNext}>
+				<ChevronRight class="h-6 w-6" />
 			</button>
 		</div>
 	</div>
