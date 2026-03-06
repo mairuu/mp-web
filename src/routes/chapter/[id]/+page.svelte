@@ -223,7 +223,8 @@
 		</span>
 
 		<div style:min-height="{pull.pullHeight}px"></div>
+		<div class="h-14"></div>
 	</div>
+{:else}
+	<div class="h-14"></div>
 {/if}
-
-<div class="h-14"></div>

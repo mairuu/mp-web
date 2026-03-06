@@ -8,6 +8,7 @@
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import Nav from './Nav.svelte';
+	import { goto } from '$app/navigation';
 
 	const props: PageProps = $props();
 
@@ -50,9 +51,13 @@
 			return parseFloat(b) - parseFloat(a);
 		})
 	);
+
+	function handleGoBack() {
+		goto(resolve('/'));
+	}
 </script>
 
-<Nav />
+<Nav onBack={handleGoBack} />
 
 <div class="absolute top-0 h-64 w-full overflow-hidden">
 	<div
