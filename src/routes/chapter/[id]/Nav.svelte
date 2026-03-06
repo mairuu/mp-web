@@ -22,7 +22,7 @@
 
 <div
 	class={{
-		'border- fixed top-0 right-0 left-0 z-50 border-base-content/10 bg-base-100 transition-transform': true,
+		'fixed top-0 right-0 left-0 z-50 border-b border-base-content/10 bg-base-100 transition-transform': true,
 		'translate-y-[calc((env(safe-area-inset-top)-3.5rem))]': !showNav
 	}}
 >

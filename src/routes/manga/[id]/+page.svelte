@@ -7,6 +7,7 @@
 	import ChapterGroup from './ChapterGroup.svelte';
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
+	import Nav from './Nav.svelte';
 
 	const props: PageProps = $props();
 
@@ -51,6 +52,8 @@
 	);
 </script>
 
+<Nav />
+
 <div class="absolute top-0 h-64 w-full overflow-hidden">
 	<div
 		class="absolute inset-0 bg-[0_30%] bg-cover blur-sm brightness-[.6] contrast-125 grayscale-[0.2]"
@@ -60,6 +63,8 @@
 </div>
 
 <div class="relative container mx-auto">
+	<div class="h-14"></div>
+
 	<div class="flex flex-col gap-4 px-4 pt-6 sm:flex-row">
 		<div class="aspect-5/7 w-[22vw] max-w-44 min-w-40 shrink-0 self-center">
 			<img class="block h-full w-full rounded object-cover" src={coverUrl} alt="" />
