@@ -62,6 +62,7 @@
 	<div class="grid" transition:slide>
 		{#each chapters as chapter (chapter.id)}
 			<a
+				data-chapter-id={chapter.id}
 				class="group flex items-center border-b border-base-content/10 py-3 text-sm hover:bg-primary/60"
 				href={resolve(`/chapter/[id]`, { id: chapter.id })}
 			>

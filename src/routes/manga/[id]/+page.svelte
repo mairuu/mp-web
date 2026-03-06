@@ -5,12 +5,23 @@
 	import type { PageProps } from './$types';
 	import { resolve } from '$app/paths';
 	import ChapterGroup from './ChapterGroup.svelte';
+	import { page } from '$app/state';
+	import { onMount } from 'svelte';
 
-	let props: PageProps = $props();
+	const props: PageProps = $props();
 
-	let { title, synopsis } = $derived(props.data.manga);
-	let chapters = $derived(props.data.chapters);
-	let coverUrl = $derived(props.data.coverUrl);
+	const { title, synopsis } = $derived(props.data.manga);
+	const chapters = $derived(props.data.chapters);
+	const coverUrl = $derived(props.data.coverUrl);
+
+	onMount(() => {
+		const fromChapterId = page.state.fromChapterId as string | undefined;
+		if (!fromChapterId) return;
+		if (!chapters.some((c) => c.id === fromChapterId)) return;
+		document
+			.querySelector(`[data-chapter-id="${fromChapterId}"]`)
+			?.scrollIntoView({ block: 'center' });
+	});
 
 	function groupBy<T>(arr: T[], keyFn: (item: T) => string): Record<string, T[]> {
 		return arr.reduce(

@@ -37,7 +37,10 @@
 	const handleGoNextChapter = $derived(hasNextChapter ? goToNextChapter : undefined);
 
 	function goToManga() {
-		goto(resolve(`/manga/[id]`, { id: chapter.manga_id }));
+		goto(resolve(`/manga/[id]`, { id: chapter.manga_id }), {
+			state: { fromChapterId: chapter.id },
+			noScroll: true
+		});
 	}
 
 	async function goToNextChapter() {
