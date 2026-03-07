@@ -35,27 +35,29 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
-	class="sticky top-14 z-10 grid cursor-pointer grid-cols-3 border-b border-base-content/30 bg-base-100 p-4 hover:bg-base-content/5"
+	class="sticky top-14 z-10 cursor-pointer border-b border-base-content/30 bg-base-100 p-4 hover:bg-base-content/5"
 	onclick={() => (collapsed = !collapsed)}
 >
-	<span class="">{volume === '' ? 'No Volume' : `Volume ${volume}`}</span>
-	<span class="text-center"
-		>Ch.
+	<div class="grid grid-cols-3 text-xs text-base-content/70">
+		<span class="">{volume === '' ? 'No Volume' : `Volume ${volume}`}</span>
+		<span class="text-center"
+			>Ch.
 
-		{#if firstChapter && lastChapter}
-			{firstChapter.number}
-			{#if firstChapter.number !== lastChapter.number}
-				-&nbsp;{lastChapter.number}
+			{#if firstChapter && lastChapter}
+				{firstChapter.number}
+				{#if firstChapter.number !== lastChapter.number}
+					-&nbsp;{lastChapter.number}
+				{/if}
 			{/if}
-		{/if}
-	</span>
-	<span class="flex items-center justify-end gap-1">
-		{chapters.length}
+		</span>
+		<span class="flex items-center justify-end gap-1">
+			{chapters.length}
 
-		<ChevronDown
-			class={{ 'h-4 w-4 transition-transform duration-50': true, 'rotate-180': !collapsed }}
-		/>
-	</span>
+			<ChevronDown
+				class={{ 'h-4 w-4 transition-transform duration-50': true, 'rotate-180': !collapsed }}
+			/>
+		</span>
+	</div>
 </div>
 
 {#if !collapsed}

@@ -26,7 +26,7 @@
 		'translate-y-[calc((env(safe-area-inset-top)-3.5rem))]': !showNav
 	}}
 >
-	<div class="flex h-14 items-center gap-2 px-2">
+	<div class="container mx-auto flex h-14 items-center gap-2 px-2">
 		<button onclick={onMenu} class="btn btn-square btn-ghost">
 			<Menu class="h-6 w-6" />
 		</button>
@@ -43,7 +43,7 @@
 		'translate-y-[calc((env(safe-area-inset-bottom)+3.5rem))]': !showNav
 	}}
 >
-	<div class="flex h-14 items-center justify-end px-2">
+	<div class="container mx-auto flex h-14 items-center justify-end px-2">
 		<div class="join">
 			<button class="btn join-item btn-square btn-ghost" disabled={!onPrev} onclick={onPrev}>
 				<ChevronLeft class="h-6 w-6" />
