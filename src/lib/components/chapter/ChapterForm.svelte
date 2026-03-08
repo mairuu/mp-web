@@ -41,7 +41,6 @@
 			z-index: 9999;
 			opacity: 0.9;
 			transform: rotate(2deg) scale(1.03);
-			border-radius: 0.5rem;
 			box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 			transition: box-shadow 0.1s;
 		`;
@@ -172,21 +171,18 @@
 				data-page-index={i}
 				role="listitem"
 				class={{
-					'cursor-grab transition-opacity duration-150 select-none': true,
+					'cursor-grab overflow-hidden rounded-box transition-opacity duration-150 select-none': true,
 					'opacity-30': dragSrcIndex === i,
-					'rounded-box ring-2 ring-primary ring-offset-2': dragOverIndex === i
+					'ring-2 ring-primary ring-offset-2': dragOverIndex === i
 				}}
 			>
-				<div class="relative flex w-full items-center justify-center" style:padding-bottom="140%">
-					<div
-						class="absolute inset-0 flex items-center justify-center rounded-box bg-cover bg-center"
-						style:background-image="url({page.url})"
-					></div>
+				<div class="relative flex aspect-5/7 w-full items-center justify-center">
+					<img src={page.url} class="absolute inset-0 object-cover" alt="" />
 
 					{#if page.upload}
 						<div
 							class={{
-								'absolute inset-0 flex items-center justify-center rounded-box': true,
+								'absolute inset-0 flex items-center justify-center': true,
 								'bg-black/30':
 									page.upload.status === 'pending' || page.upload.status === 'uploading',
 								'bg-error/30': page.upload.status === 'rejected'
@@ -222,11 +218,7 @@
 			</div>
 		{/each}
 
-		<button
-			class="relative flex h-0 w-full items-center justify-center"
-			style:padding-bottom="140%"
-			onclick={openFileDialog}
-		>
+		<button class="relative aspect-5/7" onclick={openFileDialog}>
 			<label
 				for=""
 				class={{

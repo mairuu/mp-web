@@ -46,16 +46,14 @@
 	<h4 class="my-4 px-4 text-lg font-bold">Upload Chapter</h4>
 
 	<div class="my-4 flex gap-3 bg-base-200 p-4">
-		<div class="w-24 shrink-0">
-			<div class="relative flex w-full items-center justify-center" style:padding-bottom="140%">
-				<div
-					class="absolute inset-0 flex items-center justify-center rounded-box bg-cover bg-center"
-					style:background-image="url({data.coverUrl})"
-				></div>
+		<div class="w-24 shrink-0 overflow-hidden rounded-box">
+			<div class="relative aspect-5/7">
+				<img src={data.coverUrl} class="absolute inset-0 object-cover" alt="" />
 			</div>
 		</div>
+
 		<div>
-			<h2 class="font-bold">{data.manga.title}</h2>
+			<h2 class="line-clamp-2 font-bold">{data.manga.title}</h2>
 			<span
 				class="badge"
 				class:badge-success={data.manga.status === 'ongoing'}

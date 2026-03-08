@@ -9,7 +9,8 @@
 	import { onMount } from 'svelte';
 	import Nav from './Nav.svelte';
 	import { goto } from '$app/navigation';
-	import { resolveThumbnailUrl } from '$lib/cdn';
+	import { resolveObjectUrl, resolveThumbnailUrl } from '$lib/cdn';
+	import ImagePreviewDialog from '$lib/components/image/ImagePreviewDialog.svelte';
 
 	const props: PageProps = $props();
 
@@ -54,6 +55,7 @@
 	);
 
 	let tab: 'chapters' | 'covers' | 'manage' = $state('chapters');
+	let previewImageUrl = $state<string | null>(null);
 
 	function handleGoBack() {
 		goto(resolve('/'));
@@ -133,11 +135,17 @@
 		class="grid grid-cols-2 gap-3 p-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
 	>
 		{#each props.data.manga.covers as cover (cover.object_name)}
-			<div class="relative w-full" style:padding-bottom="140%">
-				<div
-					class="absolute inset-0 flex cursor-pointer items-center justify-center rounded-box bg-cover bg-center"
-					style:background-image="url({resolveThumbnailUrl(cover.object_name)})"
-				></div>
+			<div class="relative aspect-5/7 w-full overflow-hidden rounded-box">
+				<button
+					class="cursor-pointer"
+					onclick={() => (previewImageUrl = resolveObjectUrl(cover.object_name))}
+				>
+					<img
+						src={resolveThumbnailUrl(cover.object_name)}
+						class="absolute inset-0 object-cover"
+						alt=""
+					/>
+				</button>
 
 				<span class="absolute bottom-2 left-2 badge">
 					{cover.volume ? `Volume ${cover.volume}` : 'No volume'}
@@ -145,6 +153,8 @@
 			</div>
 		{/each}
 	</div>
+
+	<ImagePreviewDialog bind:imageUrl={previewImageUrl} />
 {/snippet}
 
 {#snippet tab_manage()}

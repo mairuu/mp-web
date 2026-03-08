@@ -80,20 +80,20 @@
 		<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
 			{#each controller.covers as cover (cover.id)}
 				<div class="">
-					<div class="relative w-full" style:padding-bottom="140%">
-						<!-- svelte-ignore a11y_click_events_have_key_events -->
-						<!-- svelte-ignore a11y_no_static_element_interactions -->
-						<div
-							class="absolute inset-0 flex cursor-pointer items-center justify-center rounded-box bg-cover bg-center outline-primary"
-							class:outline-2={cover.isPrimary}
-							style:background-image="url({cover.url})"
-							onclick={() => previewCover(cover)}
-						></div>
+					<div class="relative aspect-5/7 overflow-hidden rounded-box">
+						<button class="cursor-pointer" onclick={() => previewCover(cover)}>
+							<img
+								class="absolute inset-0 object-cover"
+								class:outline-2={cover.isPrimary}
+								src={cover.url}
+								alt=""
+							/>
+						</button>
 
 						{#if cover.upload}
 							<div
 								class={{
-									'absolute inset-0 flex items-center justify-center rounded-box': true,
+									'absolute inset-0 flex items-center justify-center': true,
 									'bg-black/30':
 										cover.upload.status === 'pending' || cover.upload.status === 'uploading',
 									'bg-error/30': cover.upload.status === 'rejected'
@@ -141,11 +141,7 @@
 				</div>
 			{/each}
 
-			<button
-				class="relative flex h-0 w-full items-center justify-center"
-				style:padding-bottom="140%"
-				onclick={openFileDialog}
-			>
+			<button class="relative aspect-5/7" onclick={openFileDialog}>
 				<label
 					for=""
 					class={{
