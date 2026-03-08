@@ -1,9 +1,9 @@
 <script lang="ts">
 	import SquarePen from '@lucide/svelte/icons/square-pen';
 	import ArrowDown from '@lucide/svelte/icons/arrow-down';
-	import { onMount } from 'svelte';
 
 	import { resolveObjectUrl } from '$lib/cdn';
+	import { createMatchMedia } from '$lib/mediaQuery.svelte';
 	import { createPullToNext } from '$lib/components/chapter/pullToNext.svelte';
 	import type { PageProps } from './$types';
 	import { resolve } from '$app/paths';
@@ -76,18 +76,12 @@
 	}
 
 	const pull = createPullToNext(goToNextChapter);
-	const mql = window.matchMedia('(pointer: coarse)');
-
-	let isTouchDevice = $state(mql.matches);
-
-	function handleMediaQueryChange(e: MediaQueryListEvent) {
-		isTouchDevice = e.matches;
-	}
+	const isTouchDevice = createMatchMedia('(pointer: coarse)');
 
 	const CIRCLE_RADIUS = 16;
 	const CIRCLE_CIRCUMFERENCE = 2 * Math.PI * CIRCLE_RADIUS;
 
-	const showPullToNext = $derived(isTouchDevice && hasNextChapter);
+	const showPullToNext = $derived(isTouchDevice.matches && hasNextChapter);
 	const circleDashOffset = $derived(CIRCLE_CIRCUMFERENCE * (1 - pull.pullProgress));
 
 	$effect(() => {
@@ -96,14 +90,7 @@
 		} else {
 			pull.disable();
 		}
-	});
-
-	onMount(() => {
-		mql.addEventListener('change', handleMediaQueryChange);
-		return () => {
-			mql.removeEventListener('change', handleMediaQueryChange);
-			pull.disable();
-		};
+		return () => pull.disable();
 	});
 
 	function handleScroll() {
@@ -120,13 +107,13 @@
 </script>
 
 <svelte:head>
-	<title>ch. {chapter.title}</title>
+	<title>{chapter.title}</title>
 </svelte:head>
 
 <svelte:window onscroll={handleScroll} />
 
 <Nav
-	title="Ch. {chapter.number} - {chapter.title}"
+	title={chapter.title}
 	bind:hidden={navHidden}
 	onMenu={goToManga}
 	onNext={handleGoNextChapter}

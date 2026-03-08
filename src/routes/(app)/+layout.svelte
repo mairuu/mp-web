@@ -3,20 +3,10 @@
 	import Settings2 from '@lucide/svelte/icons/settings-2';
 	import PanelLeftOpen from '@lucide/svelte/icons/panel-left-open';
 	import LibraryBig from '@lucide/svelte/icons/library-big';
+	import { createMatchMedia } from '$lib/mediaQuery.svelte';
 
-	import { onMount } from 'svelte';
-
-	const mql = window.matchMedia('(min-width: 640px)');
-	let useDockNav = $state(!mql.matches);
-
-	onMount(() => {
-		function handleQueryChanged(e: MediaQueryListEvent) {
-			useDockNav = !e.matches;
-		}
-
-		mql.addEventListener('change', handleQueryChanged);
-		return () => mql.removeEventListener('change', handleQueryChanged);
-	});
+	const smallScreen = createMatchMedia('(max-width: 640px)');
+	const useDockNav = $derived(smallScreen.matches);
 
 	const { children } = $props();
 </script>
