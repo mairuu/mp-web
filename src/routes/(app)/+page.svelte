@@ -50,7 +50,7 @@
 						></div>
 					</div>
 					<div>
-						<a class="line-clamp-2" href={resolve('/manga/[id]', { id: manga.id })}>
+						<a class="line-clamp-2" href={resolve('/(app)/manga/[id]', { id: manga.id })}>
 							{manga.title}</a
 						>
 					</div>

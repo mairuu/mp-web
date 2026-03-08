@@ -37,7 +37,7 @@
 	const handleGoNextChapter = $derived(hasNextChapter ? goToNextChapter : undefined);
 
 	function goToManga() {
-		goto(resolve(`/manga/[id]`, { id: chapter.manga_id }), {
+		goto(resolve(`/(app)/manga/[id]`, { id: chapter.manga_id }), {
 			state: { fromChapterId: chapter.id },
 			noScroll: true
 		});
@@ -53,7 +53,7 @@
 
 		try {
 			loading = true;
-			await goto(resolve(`/chapter/[id]`, { id: nextChapter.id }));
+			await goto(resolve(`/(app)/chapter/[id]`, { id: nextChapter.id }));
 		} finally {
 			loading = false;
 		}
@@ -69,7 +69,7 @@
 
 		try {
 			loading = true;
-			await goto(resolve(`/chapter/[id]`, { id: prevChapter.id }));
+			await goto(resolve(`/(app)/chapter/[id]`, { id: prevChapter.id }));
 		} finally {
 			loading = false;
 		}
@@ -135,7 +135,7 @@
 
 <div>
 	<div class="mx-auto w-full max-w-xl px-4 pt-4">
-		<a class="btn btn-square" href={resolve(`/chapter/[id]/edit`, { id: chapter.id })}>
+		<a class="btn btn-square" href={resolve(`/(app)/chapter/[id]/edit`, { id: chapter.id })}>
 			<SquarePen />
 		</a>
 	</div>
@@ -228,3 +228,9 @@
 {:else}
 	<div class="h-14"></div>
 {/if}
+
+<style>
+	:global(html) {
+		overscroll-behavior: none;
+	}
+</style>

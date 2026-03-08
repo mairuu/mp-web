@@ -95,11 +95,11 @@
 	</div> -->
 
 	<div class="my-4 px-4">
-		<a class="btn" href={resolve(`/manga/[id]/edit`, { id: props.data.manga.id })}>
+		<a class="btn" href={resolve(`/(app)/manga/[id]/edit`, { id: props.data.manga.id })}>
 			<SquarePen />
 		</a>
 
-		<a class="btn" href={resolve(`/manga/[id]/upload`, { id: props.data.manga.id })}>
+		<a class="btn" href={resolve(`/(app)/manga/[id]/upload`, { id: props.data.manga.id })}>
 			<Upload />
 		</a>
 	</div>
