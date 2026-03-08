@@ -68,8 +68,6 @@
 </div>
 
 <div class="relative container mx-auto">
-	<div class="h-14"></div>
-
 	<div class="flex flex-col gap-4 px-4 pt-6 sm:flex-row">
 		<div class="aspect-5/7 w-[22vw] max-w-44 min-w-40 shrink-0 self-center">
 			<img class="block h-full w-full rounded object-cover" src={coverUrl} alt="" />
