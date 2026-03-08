@@ -35,7 +35,7 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_static_element_interactions -->
 <div
-	class="sticky top-14 z-10 cursor-pointer border-b border-base-content/30 bg-base-100 p-4 hover:bg-base-content/5"
+	class="sticky top-14 z-10 cursor-pointer border-b border-base-content/30 bg-base-100 p-4 hover:bg-[color-mix(in_oklab,var(--color-base-100)_95%,white)]"
 	onclick={() => (collapsed = !collapsed)}
 >
 	<div class="grid grid-cols-3 text-xs text-base-content/70">
