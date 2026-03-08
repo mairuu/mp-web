@@ -9,6 +9,7 @@
 	import { onMount } from 'svelte';
 	import Nav from './Nav.svelte';
 	import { goto } from '$app/navigation';
+	import { resolveThumbnailUrl } from '$lib/cdn';
 
 	const props: PageProps = $props();
 
@@ -52,6 +53,8 @@
 		})
 	);
 
+	let tab: 'chapters' | 'covers' | 'manage' = $state('chapters');
+
 	function handleGoBack() {
 		goto(resolve('/'));
 	}
@@ -86,13 +89,66 @@
 		{/each}
 	</div>
 
+	<div class="">
+		<div role="tablist" class="tabs-lift tabs">
+			<span class="tab w-4 shrink-0 grow-0 p-0"></span>
+			{@render tab_button('chapters', 'Chapters')}
+			{@render tab_button('covers', 'Covers')}
+			{@render tab_button('manage', 'Manage')}
+			<span class="tab grow"></span>
+		</div>
+	</div>
+
 	<!-- <div class="m-4 flex flex-wrap gap-2">
 		{#each project?.genres || [] as genre}
 			<a href="/search?genres={genre}" class="badge">{genre}</a>
 		{/each}
 	</div> -->
 
-	<div class="my-4 px-4">
+	<div class="min-h-[calc(100vh-14rem)]">
+		{#if tab === 'chapters'}
+			{@render tab_chapters()}
+		{:else if tab === 'covers'}
+			{@render tab_covers()}
+		{:else if tab === 'manage'}
+			{@render tab_manage()}
+		{/if}
+	</div>
+</div>
+
+{#snippet tab_button(t: typeof tab, label: string)}
+	<button role="tab" class="tab" class:tab-active={tab === t} onclick={() => (tab = t)}
+		>{label}</button
+	>
+{/snippet}
+
+{#snippet tab_chapters()}
+	{#each groupByVolume as [volume, chapters] (volume)}
+		<ChapterGroup {volume} {chapters} />
+	{/each}
+{/snippet}
+
+{#snippet tab_covers()}
+	<div
+		class="grid grid-cols-2 gap-3 p-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+	>
+		{#each props.data.manga.covers as cover (cover.object_name)}
+			<div class="relative w-full" style:padding-bottom="140%">
+				<div
+					class="absolute inset-0 flex cursor-pointer items-center justify-center rounded-box bg-cover bg-center"
+					style:background-image="url({resolveThumbnailUrl(cover.object_name)})"
+				></div>
+
+				<span class="absolute bottom-2 left-2 badge">
+					{cover.volume ? `Volume ${cover.volume}` : 'No volume'}
+				</span>
+			</div>
+		{/each}
+	</div>
+{/snippet}
+
+{#snippet tab_manage()}
+	<div class="p-4">
 		<a class="btn" href={resolve(`/(app)/manga/[id]/edit`, { id: props.data.manga.id })}>
 			<SquarePen />
 		</a>
@@ -101,10 +157,4 @@
 			<Upload />
 		</a>
 	</div>
-
-	<div class="min-h-screen">
-		{#each groupByVolume as [volume, chapters] (volume)}
-			<ChapterGroup {volume} {chapters} />
-		{/each}
-	</div>
-</div>
+{/snippet}
