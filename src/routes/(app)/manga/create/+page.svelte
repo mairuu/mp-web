@@ -30,7 +30,7 @@
 	}
 </script>
 
-<div class="h-24"></div>
+<div class="h-4"></div>
 
 <div class="container mx-auto min-h-screen">
 	<h1 class="px-4 text-xl font-bold">Create Manga</h1>

@@ -40,10 +40,10 @@
 	let previewImageUrl = $state<string | null>(null);
 </script>
 
-<div class="h-24"></div>
+<div class="h-4"></div>
 
 <div class="container mx-auto">
-	<h4 class="my-4 px-4 text-lg font-bold">Details</h4>
+	<h4 class="my-4 px-4 text-lg font-bold">Upload Chapter</h4>
 
 	<div class="my-4 flex gap-3 bg-base-200 p-4">
 		<div class="w-24 shrink-0">
