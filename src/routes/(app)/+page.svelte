@@ -40,20 +40,16 @@
 	{:else}
 		<div class="grid grid-cols-3 gap-2 px-4 sm:grid-cols-4 sm:gap-4 md:grid-cols-5 lg:grid-cols-6">
 			{#each pg.items as manga (manga.id)}
+				{@const link = resolve('/(app)/manga/[id]', { id: manga.id })}
 				<div class="">
-					<div class="relative flex w-full items-center justify-center" style:padding-bottom="140%">
-						<div
-							class="absolute inset-0 flex items-center justify-center rounded-box bg-cover bg-center"
-							style:background-image="url({resolveThumbnailUrl(manga.cover_object_name)})"
-							role="img"
-							aria-label={manga.title}
-						></div>
-					</div>
-					<div>
-						<a class="line-clamp-2" href={resolve('/(app)/manga/[id]', { id: manga.id })}>
-							{manga.title}</a
-						>
-					</div>
+					<a href={link} class="relative flex aspect-5/7 w-full items-center justify-center">
+						<img
+							src={resolveThumbnailUrl(manga.cover_object_name)}
+							alt={manga.title}
+							class="absolute inset-0 h-full w-full rounded-box object-cover"
+						/>
+					</a>
+					<a class="line-clamp-2" href={link}> {manga.title}</a>
 				</div>
 			{/each}
 		</div>
