@@ -39,7 +39,7 @@
 
 	<div class="divider"></div>
 
-	<div class="sticky bottom-0 bg-base-100 px-4 py-2">
+	<div class="bg-base-100 px-4 py-2">
 		<div class="flex justify-end gap-2">
 			<button
 				class="btn btn-primary"
@@ -48,5 +48,27 @@
 				onclick={handleSubmit}>Create</button
 			>
 		</div>
+	</div>
+
+	<div class="divider"></div>
+
+	<div class="p-4">
+		<h3 class="font-bold">Submission Guidelines</h3>
+
+		<div class="mt-4 font-bold">General</div>
+
+		<ul class="list-disc pl-6">
+			<li>At least one cover image is required.</li>
+			<li>If no primary cover is selected, the last volume cover will be used.</li>
+			<li>Troll or spam submissions may result in revoked permissions.</li>
+		</ul>
+
+		<div class="mt-4 font-bold">Cover File Limitations</div>
+
+		<ul class="list-disc pl-6">
+			<li>Accepted formats: WebP, JPEG, PNG.</li>
+			<li>Maximum size: 5MB per image.</li>
+			<li>Portrait orientation is preferred.</li>
+		</ul>
 	</div>
 </div>
