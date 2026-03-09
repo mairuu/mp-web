@@ -21,14 +21,46 @@
 	];
 
 	const { children } = $props();
+
+	let dockHidden = $state(false);
+	let acc = 0;
+	let lastScrollY = 0;
+
+	function handleScroll() {
+		if (!useDockNav) return;
+
+		const currentScrollY = window.scrollY;
+
+		if (
+			currentScrollY <= 56 ||
+			currentScrollY + window.innerHeight >= document.documentElement.scrollHeight - 56
+		) {
+			dockHidden = false;
+			return;
+		}
+
+		acc += currentScrollY - lastScrollY;
+
+		if (acc > 50) {
+			dockHidden = true;
+			acc = 0;
+		} else if (acc < -50) {
+			dockHidden = false;
+			acc = 0;
+		}
+
+		lastScrollY = currentScrollY;
+	}
 </script>
+
+<svelte:window on:scroll={handleScroll} />
 
 {#if useDockNav}
 	{@render children()}
 
 	<div class="h-[calc(3.5rem+env(safe-area-inset-bottom))]"></div>
 
-	<div class="dock dock-sm z-10">
+	<div class="dock dock-sm z-10 transition-transform" class:translate-y-full={dockHidden}>
 		{#each links as link, i (i)}
 			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 			<a href={link.url} class="dock-item" class:dock-active={link.url === page.url.pathname}>
