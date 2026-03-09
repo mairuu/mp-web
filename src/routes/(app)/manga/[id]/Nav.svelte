@@ -1,12 +1,15 @@
 <script lang="ts">
 	import ChevronLeft from '@lucide/svelte/icons/chevron-left';
+	import type { Snippet } from 'svelte';
 
 	let {
 		hidden = $bindable(false),
-		onBack
+		onBack,
+		children
 	}: {
 		hidden?: boolean;
 		onBack?: () => void;
+		children?: Snippet;
 	} = $props();
 
 	let progress = $state(0);
@@ -36,5 +39,8 @@
 		<button onclick={onBack} class="btn btn-square btn-ghost">
 			<ChevronLeft class="h-6 w-6" />
 		</button>
+		<div style:--opacity={opacity} class="opacity-(--opacity)">
+			{@render children?.()}
+		</div>
 	</div>
 </div>

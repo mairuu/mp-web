@@ -113,7 +113,7 @@
 <svelte:window onscroll={handleScroll} />
 
 <Nav
-	title={chapter.title}
+	title="Ch.{chapter.number}{chapter.title ? ` - ${chapter.title}` : ''}"
 	bind:hidden={navHidden}
 	onMenu={goToManga}
 	onNext={handleGoNextChapter}

@@ -62,7 +62,11 @@
 	}
 </script>
 
-<Nav onBack={handleGoBack} />
+<Nav onBack={handleGoBack}>
+	<div class="line-clamp-1">
+		{title}
+	</div>
+</Nav>
 
 <div class="absolute top-0 h-64 w-full overflow-hidden">
 	<div
