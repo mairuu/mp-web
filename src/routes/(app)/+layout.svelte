@@ -4,9 +4,21 @@
 	import PanelLeftOpen from '@lucide/svelte/icons/panel-left-open';
 	import LibraryBig from '@lucide/svelte/icons/library-big';
 	import { createMatchMedia } from '$lib/mediaQuery.svelte';
+	import type { ResolvedPathname } from '$app/types';
+	import { page } from '$app/state';
 
 	const smallScreen = createMatchMedia('(max-width: 640px)');
 	const useDockNav = $derived(smallScreen.matches);
+
+	const links: {
+		label: string;
+		icon: typeof House;
+		url: ResolvedPathname;
+	}[] = [
+		{ label: 'Home', icon: House, url: '/' },
+		{ label: 'Library', icon: LibraryBig, url: '/library' },
+		{ label: 'Settings', icon: Settings2, url: '/settings' }
+	];
 
 	const { children } = $props();
 </script>
@@ -17,20 +29,13 @@
 	<div class="h-[calc(3.5rem+env(safe-area-inset-bottom))]"></div>
 
 	<div class="dock dock-sm z-10">
-		<button>
-			<House class="size-4" />
-			<span class="dock-label">Home</span>
-		</button>
-
-		<button>
-			<LibraryBig class="size-4" />
-			<span class="dock-label">Library</span>
-		</button>
-
-		<button>
-			<Settings2 class="size-4" />
-			<span class="dock-label">Settings</span>
-		</button>
+		{#each links as link, i (i)}
+			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+			<a href={link.url} class="dock-item" class:dock-active={link.url === page.url.pathname}>
+				<link.icon class="size-4" />
+				<span class="dock-label">{link.label}</span>
+			</a>
+		{/each}
 	</div>
 {:else}
 	<div class="drawer sm:drawer-open">
@@ -50,35 +55,15 @@
 						<PanelLeftOpen class="my-1.5 inline-block size-4" />
 					</label>
 
-					<li>
-						<button
-							class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-							data-tip="Homepage"
-						>
-							<House class="my-1.5 inline-block size-4" />
-							<span class="is-drawer-close:hidden">Home</span>
-						</button>
-					</li>
-
-					<li>
-						<button
-							class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-							data-tip="Library"
-						>
-							<LibraryBig class="my-1.5 inline-block size-4" />
-							<span class="is-drawer-close:hidden">Library</span>
-						</button>
-					</li>
-
-					<li>
-						<button
-							class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-							data-tip="Settings"
-						>
-							<Settings2 class="my-1.5 inline-block size-4" />
-							<span class="is-drawer-close:hidden">Settings</span>
-						</button>
-					</li>
+					{#each links as link, i (i)}
+						<li>
+							<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+							<a href={link.url} class:menu-active={link.url === page.url.pathname}>
+								<link.icon class="my-1.5 inline-block size-4" />
+								<span class="is-drawer-close:hidden">{link.label}</span>
+							</a>
+						</li>
+					{/each}
 				</ul>
 			</div>
 		</div>

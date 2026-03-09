@@ -53,7 +53,7 @@
 
 		try {
 			loading = true;
-			await goto(resolve(`/(app)/chapter/[id]`, { id: nextChapter.id }));
+			await goto(resolve(`/(app)/chapter/[id]`, { id: nextChapter.id }), { replaceState: true });
 		} finally {
 			loading = false;
 		}
@@ -69,7 +69,7 @@
 
 		try {
 			loading = true;
-			await goto(resolve(`/(app)/chapter/[id]`, { id: prevChapter.id }));
+			await goto(resolve(`/(app)/chapter/[id]`, { id: prevChapter.id }), { replaceState: true });
 		} finally {
 			loading = false;
 		}
