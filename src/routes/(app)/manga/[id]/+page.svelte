@@ -139,14 +139,14 @@
 		class="grid grid-cols-2 gap-3 p-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
 	>
 		{#each props.data.manga.covers as cover (cover.object_name)}
-			<div class="relative aspect-5/7 w-full overflow-hidden rounded-box">
+			<div class="relative aspect-5/7 w-full">
 				<button
 					class="cursor-pointer"
 					onclick={() => (previewImageUrl = resolveObjectUrl(cover.object_name))}
 				>
 					<img
 						src={resolveThumbnailUrl(cover.object_name)}
-						class="absolute inset-0 object-cover"
+						class="absolute inset-0 max-h-full w-full rounded-box object-cover"
 						alt=""
 					/>
 				</button>

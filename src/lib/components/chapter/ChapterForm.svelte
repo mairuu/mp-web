@@ -171,13 +171,17 @@
 				data-page-index={i}
 				role="listitem"
 				class={{
-					'cursor-grab overflow-hidden rounded-box transition-opacity duration-150 select-none': true,
+					'cursor-grab overflow-hidden rounded-box bg-base-100 transition-opacity duration-150 select-none': true,
 					'opacity-30': dragSrcIndex === i,
 					'ring-2 ring-primary ring-offset-2': dragOverIndex === i
 				}}
 			>
 				<div class="relative flex aspect-5/7 w-full items-center justify-center">
-					<img src={page.url} class="absolute inset-0 object-cover" alt="" />
+					<img
+						src={page.url}
+						class="absolute inset-0 max-h-full w-full rounded-box object-cover"
+						alt=""
+					/>
 
 					{#if page.upload}
 						<div

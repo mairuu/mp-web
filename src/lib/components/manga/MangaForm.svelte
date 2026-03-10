@@ -83,7 +83,7 @@
 					<div class="relative aspect-5/7 overflow-hidden rounded-box">
 						<button class="cursor-pointer" onclick={() => previewCover(cover)}>
 							<img
-								class="absolute inset-0 object-cover"
+								class="absolute inset-0 h-full w-full object-cover"
 								class:outline-2={cover.isPrimary}
 								src={cover.url}
 								alt=""
