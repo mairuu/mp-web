@@ -16,6 +16,13 @@
 	});
 </script>
 
+<div class="sticky top-0 z-50">
+	<div class="absolute inset-0 border-b border-base-content/10 bg-base-200"></div>
+	<div class="relative container mx-auto flex h-14 items-center gap-2 px-2">
+		<h1 class="px-2 text-lg font-bold">Marquee Pastry</h1>
+	</div>
+</div>
+
 <div class="container mx-auto">
 	{#if !auth.isLoggedIn}
 		<a href={resolve('/(auth)/login')} class="btn"> login </a>

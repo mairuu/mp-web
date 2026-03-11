@@ -80,18 +80,20 @@
 			<label for="app-scaffold" aria-label="close sidebar" class="drawer-overlay"></label>
 
 			<div
-				class="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64"
+				class="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-16 is-drawer-open:w-64"
 			>
-				<ul class="menu w-full grow">
-					<label for="app-scaffold" aria-label="open sidebar" class="btn btn-square btn-ghost">
-						<PanelLeftOpen class="my-1.5 inline-block size-4" />
+				<div class="flex h-14 w-full items-center border-b border-base-content/10 px-2">
+					<label for="app-scaffold" aria-label="open sidebar" class="btn w-full p-0 btn-ghost">
+						<PanelLeftOpen class="my-2 inline-block size-5 is-drawer-open:rotate-180" />
 					</label>
+				</div>
 
+				<ul class="menu w-full grow">
 					{#each links as link, i (i)}
 						<li>
 							<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 							<a href={link.url} class:menu-active={link.url === page.url.pathname}>
-								<link.icon class="my-1.5 inline-block size-4" />
+								<link.icon class="mx-0.5 my-2 inline-block size-5" />
 								<span class="is-drawer-close:hidden">{link.label}</span>
 							</a>
 						</li>
