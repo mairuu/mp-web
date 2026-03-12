@@ -1,8 +1,6 @@
 <script lang="ts">
 	import House from '@lucide/svelte/icons/house';
-	import Settings2 from '@lucide/svelte/icons/settings-2';
 	import PanelLeftOpen from '@lucide/svelte/icons/panel-left-open';
-	import LibraryBig from '@lucide/svelte/icons/library-big';
 	import User from '@lucide/svelte/icons/user';
 
 	import { createMatchMedia } from '$lib/mediaQuery.svelte';
@@ -18,9 +16,7 @@
 		url: ResolvedPathname;
 	}[] = [
 		{ label: 'Home', icon: House, url: '/' },
-		{ label: 'Library', icon: LibraryBig, url: '/library' },
-		{ label: 'Settings', icon: Settings2, url: '/settings' },
-		{ label: 'Profile', icon: User, url: '/profile' }
+		{ label: 'You', icon: User, url: '/me' }
 	];
 
 	const { children } = $props();
@@ -79,13 +75,13 @@
 			{@render children()}
 		</div>
 
-		<div class="drawer-side is-drawer-close:overflow-visible">
+		<div class="drawer-side overflow-visible">
 			<label for="app-scaffold" aria-label="close sidebar" class="drawer-overlay"></label>
 
 			<div
 				class="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-16 is-drawer-open:w-64"
 			>
-				<div class="flex h-14 w-full items-center border-b border-base-content/10 px-2">
+				<div class="sticky top-0 z-10 flex h-14 w-full items-center bg-base-200 px-2">
 					<label for="app-scaffold" aria-label="open sidebar" class="btn w-full p-0 btn-ghost">
 						<PanelLeftOpen class="my-2 inline-block size-5 is-drawer-open:rotate-180" />
 					</label>

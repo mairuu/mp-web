@@ -31,10 +31,7 @@
 		'translate-y-[calc((env(safe-area-inset-top)-3.5rem))]': !showNav
 	}}
 >
-	<div
-		style:--opacity={opacity}
-		class="absolute inset-0 border-b border-base-content/10 bg-base-100 opacity-(--opacity)"
-	></div>
+	<div style:--opacity={opacity} class="absolute inset-0 bg-base-100 opacity-(--opacity)"></div>
 	<div class="relative container mx-auto flex h-14 items-center gap-2 px-2">
 		<button onclick={onBack} class="btn btn-square btn-ghost">
 			<ChevronLeft class="h-6 w-6" />
