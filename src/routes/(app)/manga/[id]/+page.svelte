@@ -95,7 +95,7 @@
 		{/each}
 	</div>
 
-	<div class="">
+	<div class="sticky top-14 z-10 bg-base-100">
 		<div role="tablist" class="tabs-lift tabs">
 			<span class="tab w-4 shrink-0 grow-0 p-0"></span>
 			{@render tab_button('chapters', 'Chapters')}
@@ -111,7 +111,7 @@
 		{/each}
 	</div> -->
 
-	<div class="min-h-[calc(100vh-14rem)]">
+	<div class="min-h-[calc(100svh-6rem)]">
 		{#if tab === 'chapters'}
 			{@render tab_chapters()}
 		{:else if tab === 'covers'}
@@ -135,8 +135,9 @@
 {/snippet}
 
 {#snippet tab_covers()}
+	<div class="sticky top-24 z-10 h-4 bg-base-100"></div>
 	<div
-		class="grid grid-cols-2 gap-3 p-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
+		class="grid grid-cols-2 gap-3 px-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
 	>
 		{#each props.data.manga.covers as cover (cover.object_name)}
 			<div class="relative aspect-5/7 w-full">
