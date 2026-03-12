@@ -2,7 +2,6 @@
 	import { resolve } from '$app/paths';
 	import { listMangas } from '$lib/api/endpoints/manga';
 	import { resolveThumbnailUrl } from '$lib/cdn';
-	import { auth } from '$lib/auth/auth.svelte';
 	import { apiBase } from '$lib/config';
 	import { createPagination } from '$lib/pagination/pagination.svelte';
 	import { onMount } from 'svelte';
@@ -24,17 +23,7 @@
 </div>
 
 <div class="container mx-auto">
-	{#if !auth.isLoggedIn}
-		<a href={resolve('/(auth)/login')} class="btn"> login </a>
-	{/if}
-
-	{#if auth.isLoggedIn}
-		<p>Welcome, {auth.displayName}</p>
-		<button class="btn" onclick={auth.logout}> logout </button>
-		<a href={resolve('/manga/create')} class="btn">Create Manga</a>
-	{/if}
-
-	<div>
+	<div class="my-3">
 		{@render mangalists()}
 	</div>
 </div>

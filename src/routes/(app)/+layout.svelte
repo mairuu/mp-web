@@ -3,6 +3,8 @@
 	import Settings2 from '@lucide/svelte/icons/settings-2';
 	import PanelLeftOpen from '@lucide/svelte/icons/panel-left-open';
 	import LibraryBig from '@lucide/svelte/icons/library-big';
+	import User from '@lucide/svelte/icons/user';
+
 	import { createMatchMedia } from '$lib/mediaQuery.svelte';
 	import type { ResolvedPathname } from '$app/types';
 	import { page } from '$app/state';
@@ -17,7 +19,8 @@
 	}[] = [
 		{ label: 'Home', icon: House, url: '/' },
 		{ label: 'Library', icon: LibraryBig, url: '/library' },
-		{ label: 'Settings', icon: Settings2, url: '/settings' }
+		{ label: 'Settings', icon: Settings2, url: '/settings' },
+		{ label: 'Profile', icon: User, url: '/profile' }
 	];
 
 	const { children } = $props();
