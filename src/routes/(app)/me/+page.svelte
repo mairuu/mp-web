@@ -4,6 +4,7 @@
 	import CirclePlus from '@lucide/svelte/icons/circle-plus';
 	import History from '@lucide/svelte/icons/history';
 	import LogOut from '@lucide/svelte/icons/log-out';
+	import Settings from '@lucide/svelte/icons/settings';
 	import ChevronRight from '@lucide/svelte/icons/chevron-right';
 
 	import { resolve } from '$app/paths';
@@ -106,11 +107,20 @@
 			</li>
 		</ul>
 
-		<!-- Danger zone -->
 		<p class="mb-2 px-1 text-xs font-semibold tracking-widest text-base-content/50 uppercase">
 			Account
 		</p>
 		<ul class="overflow-hidden rounded-box bg-base-200">
+			<li class="border-b border-base-content/10 last:border-b-0">
+				<a
+					href={resolve('/(app)/me/settings')}
+					class="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-base-300"
+				>
+					<Settings class="size-5 shrink-0 text-primary" />
+					<span class="flex-1 font-medium">Settings & Preferences</span>
+					<ChevronRight class="size-4 shrink-0 text-base-content/30" />
+				</a>
+			</li>
 			<li>
 				<button
 					class="flex w-full items-center gap-3 px-4 py-3 transition-colors hover:bg-base-300"
