@@ -1,6 +1,8 @@
 <script lang="ts">
 	import Upload from '@lucide/svelte/icons/upload';
 	import SquarePen from '@lucide/svelte/icons/square-pen';
+	import BookMark from '@lucide/svelte/icons/bookmark';
+	import BookOpen from '@lucide/svelte/icons/book-open';
 
 	import type { PageProps } from './$types';
 	import { resolve } from '$app/paths';
@@ -77,7 +79,7 @@
 </div>
 
 <div class="relative container mx-auto">
-	<div class="flex flex-col gap-4 px-4 pt-6 sm:flex-row">
+	<div class="flex flex-col gap-4 px-4 pt-4 sm:flex-row">
 		<div class="aspect-5/7 w-[22vw] max-w-44 min-w-40 shrink-0 self-center">
 			<button class="contents cursor-pointer" onclick={() => (previewImageUrl = coverUrl)}>
 				<img class="block h-full w-full rounded object-cover" src={coverUrl} alt="" />
@@ -89,6 +91,18 @@
 		>
 			{title}
 		</h1>
+	</div>
+
+	<div class="my-4 flex flex-wrap gap-3 px-4">
+		<button class="btn btn-square max-w-44 btn-primary sm:w-[22vw] sm:min-w-40">
+			<BookMark />
+			<span class="hidden sm:block">Add to Library</span>
+		</button>
+		<button class="btn grow sm:btn-wide">
+			<BookOpen class="hidden sm:block" />
+			<span class=""> Start Reading </span>
+		</button>
+		<span class="w-4"></span>
 	</div>
 
 	<div class="my-4 px-4 text-sm text-base-content/60">

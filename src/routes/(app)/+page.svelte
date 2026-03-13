@@ -23,7 +23,7 @@
 </div>
 
 <div class="container mx-auto">
-	<div class="my-3">
+	<div class="my-4">
 		{@render mangalists()}
 	</div>
 </div>

@@ -26,7 +26,7 @@
 	</div>
 </div>
 
-<div class="container mx-auto max-w-lg px-4 py-6">
+<div class="container mx-auto max-w-lg p-4">
 	{#if !auth.isLoggedIn}
 		<div class="flex flex-col items-center gap-6 py-20">
 			<div class="flex flex-col items-center gap-2 text-center">
