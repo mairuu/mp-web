@@ -17,6 +17,10 @@
 	{:else}
 		<div class="flex flex-col gap-4">
 			<p class="text-lg">Welcome, <span class="font-semibold">{auth.displayName}</span></p>
+
+			<a href={resolve('/(app)/manga/create')} class="btn btn-primary">Create Manga</a>
+			<a href={resolve('/(app)/me/manga')} class="btn btn-secondary">Your Manga</a>
+
 			<button class="btn w-fit btn-error" onclick={auth.logout}>Logout</button>
 		</div>
 	{/if}

@@ -86,6 +86,7 @@ export type MangaListQuery = {
 
 export type MangaFilter = {
 	ids?: string[];
+	owner_ids?: string[];
 	title?: string;
 };
 
