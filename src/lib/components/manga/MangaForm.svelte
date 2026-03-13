@@ -80,10 +80,10 @@
 		<div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
 			{#each controller.covers as cover (cover.id)}
 				<div class="">
-					<div class="relative aspect-5/7 overflow-hidden rounded-box">
+					<div class="relative aspect-5/7">
 						<button class="cursor-pointer" onclick={() => previewCover(cover)}>
 							<img
-								class="absolute inset-0 h-full w-full object-cover"
+								class="absolute inset-0 h-full w-full rounded-box object-cover outline-primary"
 								class:outline-2={cover.isPrimary}
 								src={cover.url}
 								alt=""
