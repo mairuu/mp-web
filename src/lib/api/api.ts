@@ -59,9 +59,9 @@ async function _unwrappedApi<T>(
 ): Promise<T> {
 	const response = await fetcher(input, init);
 
-	if (!response.ok) {
-		throw new Error(`network response was not ok: ${response.status} ${response.statusText}`);
-	}
+	// if (!response.ok) {
+	// 	throw new Error(`network response was not ok: ${response.status} ${response.statusText}`);
+	// }
 
 	let result: ApiResponse<T>;
 	try {
@@ -96,7 +96,7 @@ function parseError(error: unknown): Error {
 		// code=error_code; message=optional message; key1=value1; key2=value2
 
 		// sniff
-		if (!error.startsWith('code=') || !error.includes(';')) {
+		if (!error.startsWith('code=')) {
 			return new ApiError(code, error);
 		}
 
@@ -112,6 +112,7 @@ function parseError(error: unknown): Error {
 
 			if (key === 'code') {
 				code = value;
+				msg = value; // default message is the code
 			} else if (key === 'message') {
 				msg = value;
 			} else {
