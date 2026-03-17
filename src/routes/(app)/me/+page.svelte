@@ -64,17 +64,17 @@
 					class="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-base-300"
 				>
 					<History class="size-5 shrink-0 text-primary" />
-					<span class="flex-1 font-medium">Reading History</span>
+					<span class="flex-1 font-medium">History</span>
 					<ChevronRight class="size-4 shrink-0 text-base-content/30" />
 				</a>
 			</li>
 			<li class="border-b border-base-content/10 last:border-b-0">
 				<a
-					href={resolve('/(app)/me/follows')}
+					href={resolve('/(app)/me/library')}
 					class="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-base-300"
 				>
 					<BookMarked class="size-5 shrink-0 text-primary" />
-					<span class="flex-1 font-medium">Following</span>
+					<span class="flex-1 font-medium">Library</span>
 					<ChevronRight class="size-4 shrink-0 text-base-content/30" />
 				</a>
 			</li>

@@ -16,5 +16,6 @@ export const load: PageLoad = async ({ params, fetch }) => {
 		},
 		orders: [{ field: 'number', direction: 'desc' }]
 	});
+
 	return { chapters: paged.items, totalChapters: paged.pagination.total_items };
 };

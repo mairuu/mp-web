@@ -10,9 +10,17 @@
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import Nav from './Nav.svelte';
-	import { goto } from '$app/navigation';
+	import { goto, invalidate } from '$app/navigation';
 	import { resolveObjectUrl, resolveThumbnailUrl } from '$lib/cdn';
 	import ImagePreviewDialog from '$lib/components/image/ImagePreviewDialog.svelte';
+	import {
+		getLibraryManga,
+		type LibraryManga,
+		upsertLibraryMangas
+	} from '$lib/api/endpoints/library';
+	import { buildFetcher } from '$lib/auth/fetcher';
+	import { apiBase } from '$lib/config';
+	import { auth } from '$lib/auth/auth.svelte';
 
 	const props: PageProps = $props();
 
@@ -62,6 +70,42 @@
 	function handleGoBack() {
 		goto(resolve('/'));
 	}
+
+	const fetcher = $derived(buildFetcher(fetch));
+
+	// todo: clean up this logic, maybe move to a separate hook
+	let loading = $state(false);
+	let libraryManga = $state<LibraryManga | null>(null);
+	let inLibrary = $derived(!!libraryManga);
+
+	async function handleToggleLibrary() {
+		if (inLibrary) {
+			await upsertLibraryMangas(apiBase, fetcher, [{ manga_id: props.data.manga.id, tags: [] }]);
+		} else {
+			await upsertLibraryMangas(apiBase, fetcher, [
+				{ manga_id: props.data.manga.id, tags: ['default'] }
+			]);
+		}
+		invalidate('my:library');
+		inLibrary = !inLibrary;
+	}
+
+	onMount(() => {
+		const controller = new AbortController();
+
+		loading = true;
+		getLibraryManga(apiBase, fetcher, props.data.manga.id, controller.signal)
+			.then((data) => {
+				libraryManga = data;
+			})
+			.finally(() => {
+				loading = false;
+			});
+
+		return () => {
+			controller.abort();
+		};
+	});
 </script>
 
 <Nav onBack={handleGoBack}>
@@ -93,17 +137,30 @@
 		</h1>
 	</div>
 
-	<div class="my-4 flex flex-wrap gap-3 px-4">
-		<button class="btn btn-square max-w-44 btn-primary sm:w-[22vw] sm:min-w-40">
-			<BookMark />
-			<span class="hidden sm:block">Add to Library</span>
-		</button>
-		<button class="btn grow sm:btn-wide">
-			<BookOpen class="hidden sm:block" />
-			<span class=""> Start Reading </span>
-		</button>
-		<span class="w-4"></span>
-	</div>
+	{#if auth.isLoggedIn}
+		<div class="my-4 flex flex-wrap gap-3 px-4">
+			<button
+				class="btn btn-square max-w-44 btn-primary sm:w-[22vw] sm:min-w-40"
+				onclick={handleToggleLibrary}
+			>
+				{#if loading}
+					<span class="loading loading-spinner"></span>
+				{:else}
+					<BookMark class="" fill={inLibrary ? 'currentColor' : 'none'} />
+					{#if inLibrary}
+						<span class="hidden sm:block">In Library</span>
+					{:else}
+						<span class="hidden sm:block">Add to Library</span>
+					{/if}
+				{/if}
+			</button>
+			<button class="btn grow sm:btn-wide">
+				<BookOpen class="hidden sm:block" />
+				<span class=""> Start Reading </span>
+			</button>
+			<span class="w-10 shrink-0"></span>
+		</div>
+	{/if}
 
 	<div class="my-4 px-4 text-sm text-base-content/60">
 		{#each synopsis.split('\n') as line, i (i)}
