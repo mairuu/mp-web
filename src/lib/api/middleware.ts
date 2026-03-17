@@ -4,8 +4,9 @@ export class TokenRefreshCoordinator {
 	refreshingPromise: Promise<RefreshResult> | null = null;
 }
 
-export function accessTokenMiddleware(token: string): FetchMiddleware {
+export function accessTokenMiddleware(tokenFactory: () => string): FetchMiddleware {
 	return (next) => (input, init) => {
+		const token = tokenFactory();
 		return injectAccessToken(next, token)(input, init);
 	};
 }

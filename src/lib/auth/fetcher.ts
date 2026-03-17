@@ -25,9 +25,17 @@ export function buildFetcher(base: Fetch): Fetch {
 		return base;
 	}
 
+	function tokenFactory() {
+		const session = defaultSession.value;
+		if (!session) {
+			throw new Error('no session available');
+		}
+		return session.token;
+	}
+
 	return createFetcher(
 		base,
-		accessTokenMiddleware(token),
+		accessTokenMiddleware(tokenFactory),
 		tokenRefreshMiddleware(
 			refreshCoordinator,
 			refreshToken,
