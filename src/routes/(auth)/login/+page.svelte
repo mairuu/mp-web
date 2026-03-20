@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { auth } from '$lib/auth/auth.svelte';
+	import { onMount, tick } from 'svelte';
 
 	let emailOrUsername = $state('');
 	let password = $state('');
@@ -26,6 +27,13 @@
 
 		goto(resolve('/'));
 	}
+
+	onMount(async () => {
+		await tick();
+
+		const loginForm = document.querySelector('#login') as HTMLFormElement | null;
+		loginForm?.focus();
+	});
 </script>
 
 <div class="">
