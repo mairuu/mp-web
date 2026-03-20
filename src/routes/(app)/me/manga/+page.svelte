@@ -34,32 +34,36 @@
 			<a href={resolve('/(app)/manga/create')} class="btn btn-primary">Create Manga</a>
 		</div>
 	{:else}
-		<div
-			class="grid grid-cols-3 gap-2 px-4 pt-3 sm:grid-cols-4 sm:gap-4 md:grid-cols-5 lg:grid-cols-6"
-		>
-			{#each data.mangas as manga (manga.id)}
-				{@const link = resolve('/(app)/manga/[id]', { id: manga.id })}
-				{@const editLink = resolve('/(app)/manga/[id]/edit', { id: manga.id })}
-				<div>
-					<div class="relative">
-						<a href={link} class="relative flex aspect-5/7 w-full items-center justify-center">
-							<img
-								src={resolveThumbnailUrl(manga.cover_object_name)}
-								alt={manga.title}
-								class="absolute inset-0 h-full w-full rounded-box object-cover"
-							/>
-						</a>
-						<a
-							href={editLink}
-							class="btn absolute top-2 right-2 btn-circle btn-sm"
-							aria-label="Edit {manga.title}"
-						>
-							<SquarePen class="size-3.5" />
+		<div class="my-3">
+			<div
+				class="grid grid-cols-3 gap-2 px-4 sm:grid-cols-4 sm:gap-4 md:grid-cols-5 lg:grid-cols-6"
+			>
+				{#each data.mangas as manga (manga.id)}
+					{@const link = resolve('/(app)/manga/[id]', { id: manga.id })}
+					{@const editLink = resolve('/(app)/manga/[id]/edit', { id: manga.id })}
+					<div>
+						<div class="relative">
+							<a href={link} class="relative flex aspect-5/7 w-full items-center justify-center">
+								<img
+									src={resolveThumbnailUrl(manga.cover_object_name)}
+									alt={manga.title}
+									class="absolute inset-0 h-full w-full rounded-box object-cover"
+								/>
+							</a>
+							<a
+								href={editLink}
+								class="btn absolute top-2 right-2 btn-circle btn-sm"
+								aria-label="Edit {manga.title}"
+							>
+								<SquarePen class="size-3.5" />
+							</a>
+						</div>
+						<a class="mt-1 leading-snug" href={link}>
+							<span class="line-clamp-2">{manga.title}</span>
 						</a>
 					</div>
-					<a class="mt-1 line-clamp-2 block text-sm leading-snug" href={link}>{manga.title}</a>
-				</div>
-			{/each}
+				{/each}
+			</div>
 		</div>
 	{/if}
 </div>

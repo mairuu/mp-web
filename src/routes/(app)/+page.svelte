@@ -18,12 +18,12 @@
 <div class="sticky top-0 z-50">
 	<div class="absolute inset-0 bg-base-100"></div>
 	<div class="relative container mx-auto flex h-14 items-center gap-2 px-2">
-		<h1 class="px-2 text-lg font-bold">Marquee Pastry</h1>
+		<h1 class="px-2 text-lg font-bold">Home</h1>
 	</div>
 </div>
 
 <div class="container mx-auto">
-	<div class="my-4">
+	<div class="my-3">
 		{@render mangalists()}
 	</div>
 </div>

@@ -16,20 +16,22 @@
 </div>
 
 {#if mangas.length > 0}
-	<div class="grid grid-cols-3 gap-2 px-4 sm:grid-cols-4 sm:gap-4 md:grid-cols-5 lg:grid-cols-6">
-		{#each mangas as manga (manga.id)}
-			{@const link = resolve('/(app)/manga/[id]', { id: manga.id })}
-			<div class="">
-				<a href={link} class="relative flex aspect-5/7 w-full items-center justify-center">
-					<img
-						src={resolveThumbnailUrl(manga.cover_object_name)}
-						alt={manga.title}
-						class="absolute inset-0 h-full w-full rounded-box object-cover"
-					/>
-				</a>
-				<a class="line-clamp-2" href={link}> {manga.title}</a>
-			</div>
-		{/each}
+	<div class="my-3">
+		<div class="grid grid-cols-3 gap-2 px-4 sm:grid-cols-4 sm:gap-4 md:grid-cols-5 lg:grid-cols-6">
+			{#each mangas as manga (manga.id)}
+				{@const link = resolve('/(app)/manga/[id]', { id: manga.id })}
+				<div class="">
+					<a href={link} class="relative flex aspect-5/7 w-full items-center justify-center">
+						<img
+							src={resolveThumbnailUrl(manga.cover_object_name)}
+							alt={manga.title}
+							class="absolute inset-0 h-full w-full rounded-box object-cover"
+						/>
+					</a>
+					<a class="line-clamp-2" href={link}> {manga.title}</a>
+				</div>
+			{/each}
+		</div>
 	</div>
 {:else}
 	<div class="flex flex-col items-center gap-4 py-20 text-center">

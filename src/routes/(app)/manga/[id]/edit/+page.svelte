@@ -42,13 +42,19 @@
 	let imagePreviewUrl = $state<string | null>(null);
 </script>
 
-<div class="h-4"></div>
+<div class="sticky top-0 z-50">
+	<div class="absolute inset-0 bg-base-100"></div>
+	<div class="relative container mx-auto flex h-14 items-center gap-2 px-4">
+		<div class="flex-1">
+			<h1 class="text-lg leading-tight font-bold">Edit Manga</h1>
+			<p class="line-clamp-1 text-xs text-base-content/50">
+				{data.manga.title}
+			</p>
+		</div>
+	</div>
+</div>
 
 <div class="container mx-auto min-h-screen">
-	<h1 class="px-4 text-xl font-bold">
-		Edit Manga (<span class="italic">{data.manga.title}</span>)
-	</h1>
-
 	<MangaForm {controller} onPreviewImage={(url) => (imagePreviewUrl = url)} />
 
 	<div class="divider"></div>

@@ -91,6 +91,8 @@
 	}
 
 	onMount(() => {
+		if (!auth.isLoggedIn) return;
+
 		const controller = new AbortController();
 
 		loading = true;

@@ -26,7 +26,7 @@
 	</div>
 </div>
 
-<div class="container mx-auto max-w-lg p-4">
+<div class="container mx-auto max-w-lg px-4">
 	{#if !auth.isLoggedIn}
 		<div class="flex flex-col items-center gap-6 py-20">
 			<div class="flex flex-col items-center gap-2 text-center">
@@ -40,8 +40,7 @@
 			</a>
 		</div>
 	{:else}
-		<!-- Profile card -->
-		<div class="mb-6 flex items-center gap-4 rounded-box bg-base-200 p-4">
+		<div class="my-3 mb-6 flex items-center gap-4 rounded-box bg-base-200 p-4">
 			<div
 				class="grid size-14 shrink-0 place-items-center rounded-full bg-primary text-xl font-bold text-primary-content"
 			>

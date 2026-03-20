@@ -46,11 +46,17 @@
 	let previewImageUrl = $state<string | null>(null);
 </script>
 
-<div class="h-24"></div>
+<div class="sticky top-0 z-50">
+	<div class="absolute inset-0 bg-base-100"></div>
+	<div class="relative container mx-auto flex h-14 items-center gap-2 px-4">
+		<div class="flex-1">
+			<h1 class="text-lg leading-tight font-bold">Edit Chapter</h1>
+			<p class="line-clamp-1 text-xs text-base-content/50"></p>
+		</div>
+	</div>
+</div>
 
 <div class="container mx-auto">
-	<h4 class="my-4 px-4 text-lg font-bold">Edit Chapter</h4>
-
 	<ChapterForm {controller} onPreviewPage={(url) => (previewImageUrl = url)} />
 
 	<div class="divider"></div>
