@@ -2,6 +2,9 @@
 	import House from '@lucide/svelte/icons/house';
 	import PanelLeftOpen from '@lucide/svelte/icons/panel-left-open';
 	import User from '@lucide/svelte/icons/user';
+	import BookMarked from '@lucide/svelte/icons/book-marked';
+	import History from '@lucide/svelte/icons/history';
+	import BookOpen from '@lucide/svelte/icons/book-open';
 
 	import { createMatchMedia } from '$lib/mediaQuery.svelte';
 	import type { ResolvedPathname } from '$app/types';
@@ -10,13 +13,25 @@
 	const smallScreen = createMatchMedia('(max-width: 640px)');
 	const useDockNav = $derived(smallScreen.matches);
 
-	const links: {
+	type MenuEntry = {
 		label: string;
 		icon: typeof House;
 		url: ResolvedPathname;
-	}[] = [
+		children?: MenuEntry[];
+	};
+
+	const links: MenuEntry[] = [
 		{ label: 'Home', icon: House, url: '/' },
-		{ label: 'You', icon: User, url: '/me' }
+		{
+			label: 'You',
+			icon: User,
+			url: '/me',
+			children: [
+				{ label: 'History', icon: History, url: '/me/history' },
+				{ label: 'Library', icon: BookMarked, url: '/me/library' },
+				{ label: 'Your Manga', icon: BookOpen, url: '/me/manga' }
+			]
+		}
 	];
 
 	const { children } = $props();
@@ -89,16 +104,30 @@
 
 				<ul class="menu w-full grow">
 					{#each links as link, i (i)}
-						<li>
-							<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-							<a href={link.url} class:menu-active={link.url === page.url.pathname}>
-								<link.icon class="mx-0.5 my-2 inline-block size-5" />
-								<span class="is-drawer-close:hidden">{link.label}</span>
-							</a>
-						</li>
+						{@render nestedmenu(link)}
+						{#if i !== links.length - 1}
+							<div class="divider1"></div>
+						{/if}
 					{/each}
 				</ul>
 			</div>
 		</div>
 	</div>
 {/if}
+
+{#snippet nestedmenu(entry: MenuEntry)}
+	<li>
+		<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+		<a href={entry.url} class:menu-active={entry.url === page.url.pathname}>
+			<entry.icon class="mx-0.5 my-2 inline-block size-5" />
+			<span class="is-drawer-close:hidden">{entry.label}</span>
+		</a>
+		{#if entry.children}
+			<ul class="is-drawer-close:m-0 is-drawer-close:p-0">
+				{#each entry.children as child, j (j)}
+					{@render nestedmenu(child)}
+				{/each}
+			</ul>
+		{/if}
+	</li>
+{/snippet}
