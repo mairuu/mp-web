@@ -14,6 +14,9 @@ export const load: PageLoad = async ({ fetch }) => {
 	const fetcher = buildFetcher(fetch);
 
 	const library = await getLibrary(apiBase, fetcher);
+	if (library.mangas.length === 0) {
+		return { library, mangas: [] };
+	}
 
 	const pagedMangas = await listMangas(apiBase, fetcher, {
 		filter: {
